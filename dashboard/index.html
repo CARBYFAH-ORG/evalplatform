@@ -15,6 +15,12 @@
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
 
+<!-- Botón Inicio -->
+<a href="../" class="fixed top-4 left-4 bg-gray-800/90 backdrop-blur hover:bg-gray-700 text-gray-400 hover:text-white px-3.5 py-2 rounded-xl text-xs font-medium transition flex items-center gap-2 z-50 border border-gray-700">
+  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>
+  Inicio
+</a>
+
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbzfBZHCdCaxvRJwLK1M8waanGdi1FujsgsTSkypYHfSHTmic7C-Zq5734jUYDooOn8wCA/exec";
 </script>
@@ -23,8 +29,8 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzfBZHCdCaxvRJwLK1M8waa
 <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
   <div class="bg-gray-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl">
     <div class="text-center mb-6">
-      <div class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
       </div>
       <h1 class="text-2xl font-bold">Dashboard</h1>
       <p class="text-gray-400 text-sm mt-1">Resultados de evaluaciones</p>
@@ -39,14 +45,16 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzfBZHCdCaxvRJwLK1M8waa
 
 <!-- MAIN -->
 <div id="mainApp" class="hidden">
-  <!-- NAV -->
   <nav class="bg-gray-800 border-b border-gray-700 px-6 py-4 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-      <h1 class="text-lg font-bold">EvalPlatform <span class="text-green-400">Dashboard</span></h1>
+      <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      <h1 class="text-lg font-bold">EvalPlatform <span class="text-purple-400">Dashboard</span></h1>
     </div>
     <div class="flex items-center gap-3">
-      <a href="../creator/" class="text-gray-400 hover:text-green-400 text-sm transition">← Creator</a>
+      <a href="../creator/" class="text-gray-400 hover:text-blue-400 text-sm transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+        Creator
+      </a>
       <button onclick="doLogout()" class="text-gray-500 hover:text-red-400 text-xs transition">Salir</button>
     </div>
   </nav>
@@ -58,90 +66,74 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzfBZHCdCaxvRJwLK1M8waa
       <select id="evalSelect" onchange="loadResults()" class="bg-gray-700 border border-gray-600 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-green-500 transition flex-1 max-w-md">
         <option value="">Seleccioná una evaluación</option>
       </select>
-      <button onclick="loadResults()" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-xl text-sm transition">Actualizar</button>
+      <button onclick="loadResults()" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-xl text-sm transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        Actualizar
+      </button>
     </div>
   </div>
 
   <!-- EMPTY STATE -->
   <div id="emptyState" class="text-center py-20">
-    <div class="text-5xl mb-4">📊</div>
+    <svg class="w-16 h-16 text-gray-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
     <p class="text-gray-400 text-lg">Seleccioná una evaluación para ver los resultados</p>
   </div>
 
   <!-- DASHBOARD CONTENT -->
   <div id="dashContent" class="hidden max-w-6xl mx-auto p-6 space-y-6 fade-in">
-
     <!-- KPI CARDS -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="bg-gray-800 rounded-xl p-5">
-        <div class="text-xs text-gray-500 mb-1">Total Alumnos</div>
+        <div class="flex items-center gap-2 mb-2"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span class="text-xs text-gray-500">Total Alumnos</span></div>
         <div class="text-3xl font-bold text-green-400" id="kpiAlumnos">0</div>
       </div>
       <div class="bg-gray-800 rounded-xl p-5">
-        <div class="text-xs text-gray-500 mb-1">Promedio Pre-Test</div>
+        <div class="flex items-center gap-2 mb-2"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="text-xs text-gray-500">Promedio Pre-Test</span></div>
         <div class="text-3xl font-bold text-yellow-400" id="kpiPre">0%</div>
       </div>
       <div class="bg-gray-800 rounded-xl p-5">
-        <div class="text-xs text-gray-500 mb-1">Promedio Post-Test</div>
+        <div class="flex items-center gap-2 mb-2"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="text-xs text-gray-500">Promedio Post-Test</span></div>
         <div class="text-3xl font-bold text-green-400" id="kpiPost">—</div>
       </div>
       <div class="bg-gray-800 rounded-xl p-5">
-        <div class="text-xs text-gray-500 mb-1">Mejora Promedio</div>
+        <div class="flex items-center gap-2 mb-2"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg><span class="text-xs text-gray-500">Mejora Promedio</span></div>
         <div class="text-3xl font-bold" id="kpiMejora">—</div>
       </div>
     </div>
 
-    <!-- CHARTS ROW -->
+    <!-- CHARTS -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Chart: Por Alumno -->
       <div class="bg-gray-800 rounded-xl p-5">
-        <h3 class="text-sm font-semibold mb-4">Resultados por Alumno</h3>
+        <h3 class="text-sm font-semibold mb-4 flex items-center gap-2"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Resultados por Alumno</h3>
         <div class="relative" style="height:350px"><canvas id="chartAlumnos"></canvas></div>
       </div>
-      <!-- Chart: Por Tema -->
       <div class="bg-gray-800 rounded-xl p-5">
-        <h3 class="text-sm font-semibold mb-4">Resultados por Tema</h3>
+        <h3 class="text-sm font-semibold mb-4 flex items-center gap-2"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>Resultados por Tema</h3>
         <div class="relative" style="height:350px"><canvas id="chartTemas"></canvas></div>
       </div>
     </div>
 
-    <!-- TABLA DETALLADA -->
+    <!-- TABLA ALUMNOS -->
     <div class="bg-gray-800 rounded-xl p-5">
-      <h3 class="text-sm font-semibold mb-4">Detalle por Alumno</h3>
+      <h3 class="text-sm font-semibold mb-4 flex items-center gap-2"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>Detalle por Alumno</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead>
-            <tr class="text-gray-500 border-b border-gray-700">
-              <th class="text-left py-3 px-3">Alumno</th>
-              <th class="text-center py-3 px-3">Pre-Test</th>
-              <th class="text-center py-3 px-3">Post-Test</th>
-              <th class="text-center py-3 px-3">Mejora</th>
-              <th class="text-center py-3 px-3">Estado</th>
-            </tr>
-          </thead>
+          <thead><tr class="text-gray-500 border-b border-gray-700"><th class="text-left py-3 px-3">Alumno</th><th class="text-center py-3 px-3">Pre-Test</th><th class="text-center py-3 px-3">Post-Test</th><th class="text-center py-3 px-3">Mejora</th><th class="text-center py-3 px-3">Estado</th></tr></thead>
           <tbody id="tablaAlumnos"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- TABLA POR TEMA -->
+    <!-- TABLA TEMAS -->
     <div class="bg-gray-800 rounded-xl p-5">
-      <h3 class="text-sm font-semibold mb-4">Detalle por Tema</h3>
+      <h3 class="text-sm font-semibold mb-4 flex items-center gap-2"><svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>Detalle por Tema</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead>
-            <tr class="text-gray-500 border-b border-gray-700">
-              <th class="text-left py-3 px-3">Tema</th>
-              <th class="text-center py-3 px-3">Pre-Test %</th>
-              <th class="text-center py-3 px-3">Post-Test %</th>
-              <th class="text-center py-3 px-3">Mejora</th>
-            </tr>
-          </thead>
+          <thead><tr class="text-gray-500 border-b border-gray-700"><th class="text-left py-3 px-3">Tema</th><th class="text-center py-3 px-3">Pre-Test %</th><th class="text-center py-3 px-3">Post-Test %</th><th class="text-center py-3 px-3">Mejora</th></tr></thead>
           <tbody id="tablaTemas"></tbody>
         </table>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -154,266 +146,115 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzfBZHCdCaxvRJwLK1M8waa
 </div>
 
 <script>
-// ── STATE ──
 let token = localStorage.getItem('evalplatform_token') || '';
 let chartAlumnos = null, chartTemas = null;
 
-// ── API ──
 async function api(action, body, params = {}) {
   let url = API_URL + '?action=' + action;
   Object.entries(params).forEach(([k, v]) => url += '&' + k + '=' + encodeURIComponent(v));
   const opts = {};
   if (body) { opts.method = 'POST'; opts.headers = {'Content-Type':'text/plain'}; opts.body = JSON.stringify(body); }
-  const res = await fetch(url, opts);
-  return await res.json();
+  return await (await fetch(url, opts)).json();
 }
 
-// ── AUTH ──
 async function doLogin() {
   const pass = document.getElementById('loginPass').value;
   try {
     const data = await api('login', { password: pass });
     if (!data.ok) { document.getElementById('loginError').textContent = data.error; document.getElementById('loginError').classList.remove('hidden'); return; }
-    token = data.token;
-    localStorage.setItem('evalplatform_token', token);
-    showApp();
+    token = data.token; localStorage.setItem('evalplatform_token', token); showApp();
   } catch (e) { document.getElementById('loginError').textContent = 'Error de conexión'; document.getElementById('loginError').classList.remove('hidden'); }
 }
-function doLogout() { token = ''; localStorage.removeItem('evalplatform_token'); location.reload(); }
-
-function showApp() {
-  document.getElementById('loginScreen').classList.add('hidden');
-  document.getElementById('mainApp').classList.remove('hidden');
-  loadEvaluaciones();
-}
-
+function doLogout() { token=''; localStorage.removeItem('evalplatform_token'); location.reload(); }
+function showApp() { document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('mainApp').classList.remove('hidden'); loadEvaluaciones(); }
 if (token) showApp();
 
-// ── LOAD EVALUACIONES ──
 async function loadEvaluaciones() {
   try {
     const data = await api('listar_evaluaciones');
     if (!data.ok) return;
     const sel = document.getElementById('evalSelect');
     sel.innerHTML = '<option value="">Seleccioná una evaluación</option>';
-    data.evaluaciones.forEach(ev => {
-      sel.innerHTML += `<option value="${ev.id}">${ev.nombre} (${ev.codigo_acceso}) — ${ev.total_preguntas || 0} preguntas</option>`;
-    });
-  } catch (e) { console.error(e); }
+    data.evaluaciones.forEach(ev => { sel.innerHTML += `<option value="${ev.id}">${ev.nombre} (${ev.codigo_acceso}) — ${ev.total_preguntas||0} preguntas</option>`; });
+  } catch(e) { console.error(e); }
 }
 
-// ── LOAD RESULTS ──
 async function loadResults() {
   const evalId = document.getElementById('evalSelect').value;
-  if (!evalId) {
-    document.getElementById('emptyState').classList.remove('hidden');
-    document.getElementById('dashContent').classList.add('hidden');
-    return;
-  }
-
+  if (!evalId) { document.getElementById('emptyState').classList.remove('hidden'); document.getElementById('dashContent').classList.add('hidden'); return; }
   document.getElementById('loading').classList.remove('hidden');
   try {
     const data = await api('resultados', null, { evaluacion_id: evalId });
     document.getElementById('loading').classList.add('hidden');
     if (!data.ok) { alert(data.error); return; }
-
     document.getElementById('emptyState').classList.add('hidden');
     document.getElementById('dashContent').classList.remove('hidden');
     document.getElementById('dashContent').className = 'max-w-6xl mx-auto p-6 space-y-6 fade-in';
-
-    renderKPIs(data);
-    renderChartAlumnos(data.resumen_alumnos);
-    renderChartTemas(data.resumen_temas);
-    renderTablaAlumnos(data.resumen_alumnos);
-    renderTablaTemas(data.resumen_temas);
-  } catch (e) {
-    document.getElementById('loading').classList.add('hidden');
-    alert('Error: ' + e.message);
-  }
+    renderKPIs(data); renderChartAlumnos(data.resumen_alumnos); renderChartTemas(data.resumen_temas); renderTablaAlumnos(data.resumen_alumnos); renderTablaTemas(data.resumen_temas);
+  } catch(e) { document.getElementById('loading').classList.add('hidden'); alert('Error: '+e.message); }
 }
 
-// ── KPIs ──
 function renderKPIs(data) {
   document.getElementById('kpiAlumnos').textContent = data.total_alumnos;
-
-  const alumnos = data.resumen_alumnos || [];
-  const conPre = alumnos.filter(a => a.pre);
-  const conPost = alumnos.filter(a => a.post);
-
-  const avgPre = conPre.length > 0 ? Math.round(conPre.reduce((s, a) => s + a.pre.porcentaje, 0) / conPre.length) : 0;
-  const avgPost = conPost.length > 0 ? Math.round(conPost.reduce((s, a) => s + a.post.porcentaje, 0) / conPost.length) : null;
-
-  document.getElementById('kpiPre').textContent = avgPre + '%';
-  document.getElementById('kpiPost').textContent = avgPost !== null ? avgPost + '%' : '—';
-
-  const mejoraEl = document.getElementById('kpiMejora');
-  if (avgPost !== null) {
-    const mejora = avgPost - avgPre;
-    mejoraEl.textContent = (mejora >= 0 ? '+' : '') + mejora + '%';
-    mejoraEl.className = 'text-3xl font-bold ' + (mejora >= 0 ? 'text-green-400' : 'text-red-400');
-  } else {
-    mejoraEl.textContent = '—';
-    mejoraEl.className = 'text-3xl font-bold text-gray-500';
-  }
+  const alumnos = data.resumen_alumnos||[];
+  const conPre = alumnos.filter(a=>a.pre), conPost = alumnos.filter(a=>a.post);
+  const avgPre = conPre.length>0 ? Math.round(conPre.reduce((s,a)=>s+a.pre.porcentaje,0)/conPre.length) : 0;
+  const avgPost = conPost.length>0 ? Math.round(conPost.reduce((s,a)=>s+a.post.porcentaje,0)/conPost.length) : null;
+  document.getElementById('kpiPre').textContent = avgPre+'%';
+  document.getElementById('kpiPost').textContent = avgPost!==null ? avgPost+'%' : '—';
+  const me = document.getElementById('kpiMejora');
+  if (avgPost!==null) { const m=avgPost-avgPre; me.textContent=(m>=0?'+':'')+m+'%'; me.className='text-3xl font-bold '+(m>=0?'text-green-400':'text-red-400'); }
+  else { me.textContent='—'; me.className='text-3xl font-bold text-gray-500'; }
 }
 
-// ── CHART: POR ALUMNO ──
 function renderChartAlumnos(alumnos) {
   const ctx = document.getElementById('chartAlumnos').getContext('2d');
   if (chartAlumnos) chartAlumnos.destroy();
-
-  const labels = alumnos.map(a => a.alumno.length > 15 ? a.alumno.substring(0, 15) + '...' : a.alumno);
-  const preData = alumnos.map(a => a.pre ? a.pre.porcentaje : 0);
-  const postData = alumnos.map(a => a.post ? a.post.porcentaje : null);
-  const hasPost = postData.some(v => v !== null);
-
-  const datasets = [{
-    label: 'Pre-Test',
-    data: preData,
-    backgroundColor: 'rgba(148, 163, 184, 0.7)',
-    borderColor: 'rgba(148, 163, 184, 1)',
-    borderWidth: 1,
-    borderRadius: 6,
-  }];
-
-  if (hasPost) {
-    datasets.push({
-      label: 'Post-Test',
-      data: postData.map(v => v || 0),
-      backgroundColor: 'rgba(0, 230, 118, 0.7)',
-      borderColor: 'rgba(0, 230, 118, 1)',
-      borderWidth: 1,
-      borderRadius: 6,
-    });
-  }
-
-  chartAlumnos = new Chart(ctx, {
-    type: 'bar',
-    data: { labels, datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: { beginAtZero: true, max: 100, ticks: { color: '#94A3B8', callback: v => v + '%' }, grid: { color: '#1E293B' } },
-        x: { ticks: { color: '#94A3B8', maxRotation: 45 }, grid: { display: false } }
-      },
-      plugins: {
-        legend: { labels: { color: '#94A3B8', usePointStyle: true, pointStyle: 'rectRounded' } },
-        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.raw + '%' } }
-      }
-    }
-  });
+  const labels=alumnos.map(a=>a.alumno.length>15?a.alumno.substring(0,15)+'...':a.alumno);
+  const preD=alumnos.map(a=>a.pre?a.pre.porcentaje:0), postD=alumnos.map(a=>a.post?a.post.porcentaje:null);
+  const ds=[{label:'Pre-Test',data:preD,backgroundColor:'rgba(148,163,184,0.7)',borderColor:'rgba(148,163,184,1)',borderWidth:1,borderRadius:6}];
+  if(postD.some(v=>v!==null)) ds.push({label:'Post-Test',data:postD.map(v=>v||0),backgroundColor:'rgba(0,230,118,0.7)',borderColor:'rgba(0,230,118,1)',borderWidth:1,borderRadius:6});
+  chartAlumnos = new Chart(ctx,{type:'bar',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94A3B8',callback:v=>v+'%'},grid:{color:'#1E293B'}},x:{ticks:{color:'#94A3B8',maxRotation:45},grid:{display:false}}},plugins:{legend:{labels:{color:'#94A3B8',usePointStyle:true,pointStyle:'rectRounded'}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}}}});
 }
 
-// ── CHART: POR TEMA ──
 function renderChartTemas(temas) {
   const ctx = document.getElementById('chartTemas').getContext('2d');
   if (chartTemas) chartTemas.destroy();
-
-  const labels = temas.map(t => t.tema);
-  const preData = temas.map(t => t.pre_porcentaje);
-  const postData = temas.map(t => t.post_porcentaje);
-  const hasPost = postData.some(v => v > 0);
-
-  const datasets = [{
-    label: 'Pre-Test',
-    data: preData,
-    backgroundColor: 'rgba(148, 163, 184, 0.7)',
-    borderColor: 'rgba(148, 163, 184, 1)',
-    borderWidth: 1,
-    borderRadius: 6,
-  }];
-
-  if (hasPost) {
-    datasets.push({
-      label: 'Post-Test',
-      data: postData,
-      backgroundColor: 'rgba(0, 230, 118, 0.7)',
-      borderColor: 'rgba(0, 230, 118, 1)',
-      borderWidth: 1,
-      borderRadius: 6,
-    });
-  }
-
-  chartTemas = new Chart(ctx, {
-    type: 'bar',
-    data: { labels, datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      indexAxis: 'y',
-      scales: {
-        x: { beginAtZero: true, max: 100, ticks: { color: '#94A3B8', callback: v => v + '%' }, grid: { color: '#1E293B' } },
-        y: { ticks: { color: '#94A3B8' }, grid: { display: false } }
-      },
-      plugins: {
-        legend: { labels: { color: '#94A3B8', usePointStyle: true, pointStyle: 'rectRounded' } },
-        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.raw + '%' } }
-      }
-    }
-  });
+  const labels=temas.map(t=>t.tema), preD=temas.map(t=>t.pre_porcentaje), postD=temas.map(t=>t.post_porcentaje);
+  const ds=[{label:'Pre-Test',data:preD,backgroundColor:'rgba(148,163,184,0.7)',borderColor:'rgba(148,163,184,1)',borderWidth:1,borderRadius:6}];
+  if(postD.some(v=>v>0)) ds.push({label:'Post-Test',data:postD,backgroundColor:'rgba(0,230,118,0.7)',borderColor:'rgba(0,230,118,1)',borderWidth:1,borderRadius:6});
+  chartTemas = new Chart(ctx,{type:'bar',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',scales:{x:{beginAtZero:true,max:100,ticks:{color:'#94A3B8',callback:v=>v+'%'},grid:{color:'#1E293B'}},y:{ticks:{color:'#94A3B8'},grid:{display:false}}},plugins:{legend:{labels:{color:'#94A3B8',usePointStyle:true,pointStyle:'rectRounded'}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}}}});
 }
 
-// ── TABLA ALUMNOS ──
 function renderTablaAlumnos(alumnos) {
-  const tbody = document.getElementById('tablaAlumnos');
-  if (alumnos.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">No hay respuestas aún</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = alumnos.map(a => {
-    const pre = a.pre ? a.pre.porcentaje + '%' : '—';
-    const post = a.post ? a.post.porcentaje + '%' : '—';
-    const mejora = a.mejora !== null ? ((a.mejora >= 0 ? '+' : '') + a.mejora + '%') : '—';
-    const mejoraColor = a.mejora !== null ? (a.mejora >= 0 ? 'text-green-400' : 'text-red-400') : 'text-gray-500';
-
-    let estado = '', estadoClass = '';
-    if (a.pre && a.post) { estado = 'Completo'; estadoClass = 'bg-green-500/10 text-green-400'; }
-    else if (a.pre) { estado = 'Solo Pre'; estadoClass = 'bg-yellow-500/10 text-yellow-400'; }
-    else { estado = 'Pendiente'; estadoClass = 'bg-gray-500/10 text-gray-400'; }
-
-    const preColor = a.pre ? (a.pre.porcentaje >= 80 ? 'text-green-400' : a.pre.porcentaje >= 50 ? 'text-yellow-400' : 'text-red-400') : 'text-gray-500';
-    const postColor = a.post ? (a.post.porcentaje >= 80 ? 'text-green-400' : a.post.porcentaje >= 50 ? 'text-yellow-400' : 'text-red-400') : 'text-gray-500';
-
-    return `<tr class="border-b border-gray-700/50 hover:bg-gray-700/20 transition">
-      <td class="py-3 px-3 font-medium">${a.alumno}</td>
-      <td class="py-3 px-3 text-center font-bold ${preColor}">${pre}</td>
-      <td class="py-3 px-3 text-center font-bold ${postColor}">${post}</td>
-      <td class="py-3 px-3 text-center font-bold ${mejoraColor}">${mejora}</td>
-      <td class="py-3 px-3 text-center"><span class="text-xs px-2.5 py-1 rounded-full font-medium ${estadoClass}">${estado}</span></td>
-    </tr>`;
+  const tb=document.getElementById('tablaAlumnos');
+  if(!alumnos.length){tb.innerHTML='<tr><td colspan="5" class="text-center py-8 text-gray-500">No hay respuestas aún</td></tr>';return;}
+  tb.innerHTML=alumnos.map(a=>{
+    const pre=a.pre?a.pre.porcentaje+'%':'—', post=a.post?a.post.porcentaje+'%':'—';
+    const mej=a.mejora!==null?((a.mejora>=0?'+':'')+a.mejora+'%'):'—';
+    const mc=a.mejora!==null?(a.mejora>=0?'text-green-400':'text-red-400'):'text-gray-500';
+    let est='',ec='';
+    if(a.pre&&a.post){est='Completo';ec='bg-green-500/10 text-green-400';}
+    else if(a.pre){est='Solo Pre';ec='bg-yellow-500/10 text-yellow-400';}
+    else{est='Pendiente';ec='bg-gray-500/10 text-gray-400';}
+    const pc=a.pre?(a.pre.porcentaje>=80?'text-green-400':a.pre.porcentaje>=50?'text-yellow-400':'text-red-400'):'text-gray-500';
+    const poc=a.post?(a.post.porcentaje>=80?'text-green-400':a.post.porcentaje>=50?'text-yellow-400':'text-red-400'):'text-gray-500';
+    return `<tr class="border-b border-gray-700/50 hover:bg-gray-700/20 transition"><td class="py-3 px-3 font-medium">${a.alumno}</td><td class="py-3 px-3 text-center font-bold ${pc}">${pre}</td><td class="py-3 px-3 text-center font-bold ${poc}">${post}</td><td class="py-3 px-3 text-center font-bold ${mc}">${mej}</td><td class="py-3 px-3 text-center"><span class="text-xs px-2.5 py-1 rounded-full font-medium ${ec}">${est}</span></td></tr>`;
   }).join('');
 }
 
-// ── TABLA TEMAS ──
 function renderTablaTemas(temas) {
-  const tbody = document.getElementById('tablaTemas');
-  if (temas.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-gray-500">No hay datos por tema</td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = temas.map(t => {
-    const mejora = t.post_porcentaje > 0 ? t.post_porcentaje - t.pre_porcentaje : null;
-    const mejoraText = mejora !== null ? ((mejora >= 0 ? '+' : '') + mejora + '%') : '—';
-    const mejoraColor = mejora !== null ? (mejora >= 0 ? 'text-green-400' : 'text-red-400') : 'text-gray-500';
-
-    const preColor = t.pre_porcentaje >= 80 ? 'text-green-400' : t.pre_porcentaje >= 50 ? 'text-yellow-400' : 'text-red-400';
-    const postColor = t.post_porcentaje > 0 ? (t.post_porcentaje >= 80 ? 'text-green-400' : t.post_porcentaje >= 50 ? 'text-yellow-400' : 'text-red-400') : 'text-gray-500';
-
-    // Visual bar
-    const preBar = `<div class="flex items-center gap-2"><div class="flex-1 bg-gray-700 rounded-full h-2"><div class="h-2 rounded-full bg-gray-400" style="width:${t.pre_porcentaje}%"></div></div><span class="font-bold ${preColor} w-12 text-right">${t.pre_porcentaje}%</span></div>`;
-    const postBar = t.post_porcentaje > 0
-      ? `<div class="flex items-center gap-2"><div class="flex-1 bg-gray-700 rounded-full h-2"><div class="h-2 rounded-full bg-green-500" style="width:${t.post_porcentaje}%"></div></div><span class="font-bold ${postColor} w-12 text-right">${t.post_porcentaje}%</span></div>`
-      : '<span class="text-gray-500">—</span>';
-
-    return `<tr class="border-b border-gray-700/50 hover:bg-gray-700/20 transition">
-      <td class="py-3 px-3 font-medium">${t.tema}</td>
-      <td class="py-3 px-3">${preBar}</td>
-      <td class="py-3 px-3">${postBar}</td>
-      <td class="py-3 px-3 text-center font-bold ${mejoraColor}">${mejoraText}</td>
-    </tr>`;
+  const tb=document.getElementById('tablaTemas');
+  if(!temas.length){tb.innerHTML='<tr><td colspan="4" class="text-center py-8 text-gray-500">No hay datos por tema</td></tr>';return;}
+  tb.innerHTML=temas.map(t=>{
+    const m=t.post_porcentaje>0?t.post_porcentaje-t.pre_porcentaje:null;
+    const mt=m!==null?((m>=0?'+':'')+m+'%'):'—';
+    const mc=m!==null?(m>=0?'text-green-400':'text-red-400'):'text-gray-500';
+    const pc=t.pre_porcentaje>=80?'text-green-400':t.pre_porcentaje>=50?'text-yellow-400':'text-red-400';
+    const poc=t.post_porcentaje>0?(t.post_porcentaje>=80?'text-green-400':t.post_porcentaje>=50?'text-yellow-400':'text-red-400'):'text-gray-500';
+    const preBar=`<div class="flex items-center gap-2"><div class="flex-1 bg-gray-700 rounded-full h-2"><div class="h-2 rounded-full bg-gray-400" style="width:${t.pre_porcentaje}%"></div></div><span class="font-bold ${pc} w-12 text-right">${t.pre_porcentaje}%</span></div>`;
+    const postBar=t.post_porcentaje>0?`<div class="flex items-center gap-2"><div class="flex-1 bg-gray-700 rounded-full h-2"><div class="h-2 rounded-full bg-green-500" style="width:${t.post_porcentaje}%"></div></div><span class="font-bold ${poc} w-12 text-right">${t.post_porcentaje}%</span></div>`:'<span class="text-gray-500">—</span>';
+    return `<tr class="border-b border-gray-700/50 hover:bg-gray-700/20 transition"><td class="py-3 px-3 font-medium">${t.tema}</td><td class="py-3 px-3">${preBar}</td><td class="py-3 px-3">${postBar}</td><td class="py-3 px-3 text-center font-bold ${mc}">${mt}</td></tr>`;
   }).join('');
 }
 </script>
