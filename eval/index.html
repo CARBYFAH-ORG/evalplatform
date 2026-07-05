@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EvalPlatform — Evaluación</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    .slide-in { animation: slideIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes pulse-green { 0%,100%{ box-shadow:0 0 0 0 rgba(0,230,118,0.4); } 70%{ box-shadow:0 0 0 10px rgba(0,230,118,0); } }
+    .pulse-green { animation: pulse-green 2s infinite; }
+    .drag-item { cursor: grab; user-select: none; touch-action: none; }
+    .drag-item:active { cursor: grabbing; }
+    .drag-item.dragging { opacity: 0.5; transform: scale(0.95); }
+    .drag-over { border-color: #00E676 !important; background: rgba(0,230,118,0.08) !important; }
+    .drop-zone { min-height: 44px; transition: all 0.2s; }
+    .opt-btn { transition: all 0.2s; }
+    .opt-btn:hover { transform: translateY(-1px); }
+    .timer-ring { transition: stroke-dashoffset 1s linear; }
+    .likert-opt { transition: all 0.2s; }
+    .likert-opt:hover { transform: scale(1.02); }
+    .progress-fill { transition: width 0.4s ease; }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzfBZHCdCaxvRJwLK1M8waanGdi1FujsgsTSkypYHfSHTmic7C-Zq5734jUYDooOn8wCA/exec";
+</script>
+
+<!-- PANTALLA 1: INGRESO -->
+<div id="screenIngreso" class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-gray-800 rounded-2xl p-8 w-full max-w-md shadow-2xl fade-in">
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </div>
+      <h1 class="text-2xl font-bold">Evaluación</h1>
+      <p class="text-gray-400 text-sm mt-1">Ingresá el código y tu nombre para comenzar</p>
+    </div>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-300 mb-1.5">Código de acceso</label>
+        <input id="inputCodigo" type="text" placeholder="Ej: ABC123" maxlength="6" class="w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-center text-2xl font-bold tracking-widest uppercase focus:outline-none focus:border-green-500 transition" oninput="this.value=this.value.toUpperCase()">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-300 mb-1.5">Tu nombre completo</label>
+        <input id="inputNombre" type="text" placeholder="Ej: Juan Pérez" class="w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 transition" onkeydown="if(event.key==='Enter')entrarEvaluacion()">
+      </div>
+      <button onclick="entrarEvaluacion()" class="w-full bg-green-500 hover:bg-green-600 text-gray-900 font-semibold py-3 rounded-xl transition text-lg">Entrar</button>
+      <p id="ingresoError" class="text-red-400 text-sm text-center hidden"></p>
+    </div>
+  </div>
+</div>
+
+<!-- PANTALLA 2: BIENVENIDA -->
+<div id="screenBienvenida" class="min-h-screen flex items-center justify-center p-4 hidden">
+  <div class="bg-gray-800 rounded-2xl p-8 w-full max-w-lg shadow-2xl text-center fade-in">
+    <div class="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-5"><span class="text-4xl">📝</span></div>
+    <h2 class="text-2xl font-bold mb-2" id="bienNombre">—</h2>
+    <p class="text-gray-400 mb-1" id="bienMateria">—</p>
+    <p class="text-gray-500 text-sm mb-6" id="bienDesc">—</p>
+    <div class="bg-gray-700/50 rounded-xl p-4 mb-6 grid grid-cols-3 gap-4 text-center">
+      <div><div class="text-2xl font-bold text-green-400" id="bienTotal">0</div><div class="text-xs text-gray-500">Preguntas</div></div>
+      <div><div class="text-2xl font-bold text-green-400" id="bienFase">PRE</div><div class="text-xs text-gray-500">Fase</div></div>
+      <div><div class="text-2xl font-bold text-green-400" id="bienModo">—</div><div class="text-xs text-gray-500">Modo</div></div>
+    </div>
+    <p class="text-gray-400 text-sm mb-4" id="bienAlumno">—</p>
+    <button onclick="iniciarEvaluacion()" class="w-full bg-green-500 hover:bg-green-600 text-gray-900 font-bold py-3.5 rounded-xl transition text-lg pulse-green">¡Comenzar!</button>
+  </div>
+</div>
+
+<!-- PANTALLA 3A: KAHOOT MODE -->
+<div id="screenKahoot" class="min-h-screen p-4 hidden">
+  <div class="max-w-3xl mx-auto mb-4">
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-sm text-gray-400" id="kahootCounter">Pregunta 1 de 10</span>
+      <div id="kahootTimer" class="hidden">
+        <div class="flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full">
+          <svg class="w-5 h-5" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="none" stroke="#374151" stroke-width="3"/><circle id="timerCircle" cx="18" cy="18" r="16" fill="none" stroke="#00E676" stroke-width="3" stroke-dasharray="100.5" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 18 18)" class="timer-ring"/></svg>
+          <span id="timerText" class="text-sm font-bold text-green-400">30</span>
+        </div>
+      </div>
+    </div>
+    <div class="w-full bg-gray-800 rounded-full h-1.5"><div id="kahootProgress" class="bg-green-500 h-1.5 rounded-full progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="max-w-3xl mx-auto">
+    <div id="kahootQuestion" class="bg-gray-800 rounded-2xl p-6 mb-4"></div>
+    <div id="kahootOptions" class="space-y-3"></div>
+    <div class="flex justify-between mt-6">
+      <button onclick="kahootPrev()" id="btnKahootPrev" class="bg-gray-800 hover:bg-gray-700 px-6 py-2.5 rounded-xl text-sm transition hidden">← Anterior</button>
+      <div class="flex-1"></div>
+      <button onclick="kahootNext()" id="btnKahootNext" class="bg-green-500 hover:bg-green-600 text-gray-900 font-semibold px-6 py-2.5 rounded-xl text-sm transition">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANTALLA 3B: FORMS MODE -->
+<div id="screenForms" class="min-h-screen p-4 hidden">
+  <div class="max-w-3xl mx-auto">
+    <div class="bg-gray-800 rounded-2xl p-6 mb-6">
+      <h2 class="text-xl font-bold" id="formsTitle">—</h2>
+      <p class="text-gray-400 text-sm" id="formsSubtitle">—</p>
+    </div>
+    <div id="formsQuestions" class="space-y-4"></div>
+    <div class="mt-6 mb-8 text-center">
+      <button onclick="enviarRespuestas()" class="bg-green-500 hover:bg-green-600 text-gray-900 font-bold px-10 py-3.5 rounded-xl transition text-lg">Enviar Respuestas</button>
+    </div>
+  </div>
+</div>
+
+<!-- PANTALLA 4: RESULTADOS -->
+<div id="screenResultados" class="min-h-screen flex items-center justify-center p-4 hidden">
+  <div class="bg-gray-800 rounded-2xl p-8 w-full max-w-md shadow-2xl text-center fade-in">
+    <div id="resIcon" class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"><span class="text-5xl">🎉</span></div>
+    <h2 class="text-2xl font-bold mb-2">¡Evaluación Completada!</h2>
+    <p class="text-gray-400 mb-6" id="resFase">Pre-Test</p>
+    <div class="bg-gray-700/50 rounded-xl p-6 mb-6">
+      <div class="text-5xl font-extrabold text-green-400 mb-1" id="resPorcentaje">0%</div>
+      <div class="text-gray-400 text-sm" id="resPuntos">0 / 0 puntos</div>
+    </div>
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="bg-green-500/10 rounded-xl p-4"><div class="text-2xl font-bold text-green-400" id="resCorrectas">0</div><div class="text-xs text-gray-400">Correctas</div></div>
+      <div class="bg-red-500/10 rounded-xl p-4"><div class="text-2xl font-bold text-red-400" id="resIncorrectas">0</div><div class="text-xs text-gray-400">Incorrectas</div></div>
+    </div>
+    <p class="text-gray-500 text-sm" id="resMensaje">Gracias por completar la evaluación.</p>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loading" class="fixed inset-0 bg-gray-900/80 z-50 flex items-center justify-center hidden">
+  <div class="text-center">
+    <div class="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+    <p class="text-gray-400 text-sm" id="loadingText">Cargando...</p>
+  </div>
+</div>
+
+<script>
+// ── STATE ──
+let evaluacion = null, preguntas = [], fase = 'pre', alumnoNombre = '', respuestas = {}, currentIdx = 0, timerInterval = null;
+
+// ── URL PARAMS ──
+const urlParams = new URLSearchParams(window.location.search);
+const codigoUrl = urlParams.get('codigo');
+if (codigoUrl) document.getElementById('inputCodigo').value = codigoUrl.toUpperCase();
+
+// ── API ──
+async function api(action, body, params = {}) {
+  let url = API_URL + '?action=' + action;
+  Object.entries(params).forEach(([k, v]) => url += '&' + k + '=' + encodeURIComponent(v));
+  const opts = {};
+  if (body) { opts.method = 'POST'; opts.headers = {'Content-Type':'text/plain'}; opts.body = JSON.stringify(body); }
+  const res = await fetch(url, opts);
+  return await res.json();
+}
+
+function showLoading(m) { document.getElementById('loadingText').textContent = m||'Cargando...'; document.getElementById('loading').classList.remove('hidden'); }
+function hideLoading() { document.getElementById('loading').classList.add('hidden'); }
+function showScreen(id) { ['screenIngreso','screenBienvenida','screenKahoot','screenForms','screenResultados'].forEach(s => document.getElementById(s).classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
+function showError(m) { const el=document.getElementById('ingresoError'); el.textContent=m; el.classList.remove('hidden'); setTimeout(()=>el.classList.add('hidden'),4000); }
+
+// ── INGRESO ──
+async function entrarEvaluacion() {
+  const codigo = document.getElementById('inputCodigo').value.trim();
+  const nombre = document.getElementById('inputNombre').value.trim();
+  if (!codigo) return showError('Ingresá el código de acceso');
+  if (!nombre) return showError('Ingresá tu nombre');
+  showLoading('Verificando código...');
+  try {
+    const data = await api('entrar_evaluacion', null, { codigo, alumno: nombre });
+    if (!data.ok) { hideLoading(); return showError(data.error); }
+    evaluacion = data.evaluacion; preguntas = data.preguntas; fase = data.fase; alumnoNombre = nombre; respuestas = {};
+    document.getElementById('bienNombre').textContent = evaluacion.nombre;
+    document.getElementById('bienMateria').textContent = evaluacion.materia || '';
+    document.getElementById('bienDesc').textContent = evaluacion.descripcion || '';
+    document.getElementById('bienTotal').textContent = preguntas.length;
+    document.getElementById('bienFase').textContent = fase === 'pre' ? 'PRE' : 'POST';
+    document.getElementById('bienModo').textContent = evaluacion.modo_vista === 'kahoot' ? '1×1' : 'Todo';
+    document.getElementById('bienAlumno').textContent = 'Alumno: ' + nombre;
+    hideLoading(); showScreen('screenBienvenida');
+  } catch (e) { hideLoading(); showError('Error de conexión'); }
+}
+
+// ── INICIAR ──
+function iniciarEvaluacion() {
+  currentIdx = 0; respuestas = {};
+  if (evaluacion.modo_vista === 'forms') { renderFormsMode(); showScreen('screenForms'); }
+  else { renderKahootQuestion(); showScreen('screenKahoot'); }
+}
+
+// ══════════════════════════════════════
+// KAHOOT MODE
+// ══════════════════════════════════════
+function renderKahootQuestion() {
+  if (currentIdx >= preguntas.length) { enviarRespuestas(); return; }
+  const p = preguntas[currentIdx], total = preguntas.length;
+  document.getElementById('kahootCounter').textContent = `Pregunta ${currentIdx+1} de ${total}`;
+  document.getElementById('kahootProgress').style.width = ((currentIdx+1)/total*100)+'%';
+  document.getElementById('btnKahootPrev').classList.toggle('hidden', currentIdx===0);
+  document.getElementById('btnKahootNext').textContent = currentIdx===total-1 ? 'Enviar ✓' : 'Siguiente →';
+
+  const qDiv = document.getElementById('kahootQuestion');
+  qDiv.className = 'bg-gray-800 rounded-2xl p-6 mb-4 slide-in';
+  let qH = '';
+  if (p.imagen_url) qH += `<img src="${p.imagen_url}" class="max-h-48 rounded-xl mx-auto mb-4" onerror="this.style.display='none'">`;
+  qH += `<h3 class="text-xl font-semibold">${p.enunciado}</h3>`;
+  if (p.tema) qH += `<span class="text-xs text-gray-500 mt-2 inline-block">${p.tema}</span>`;
+  qDiv.innerHTML = qH;
+
+  document.getElementById('kahootOptions').innerHTML = renderOptions(p);
+  startTimer(p.tiempo_segundos || 0);
+}
+
+function kahootNext() {
+  if (currentIdx >= preguntas.length-1) enviarRespuestas();
+  else { currentIdx++; renderKahootQuestion(); }
+}
+function kahootPrev() { if (currentIdx>0) { currentIdx--; renderKahootQuestion(); } }
+
+// ══════════════════════════════════════
+// FORMS MODE
+// ══════════════════════════════════════
+function renderFormsMode() {
+  document.getElementById('formsTitle').textContent = evaluacion.nombre;
+  document.getElementById('formsSubtitle').textContent = `${fase==='pre'?'Pre-Test':'Post-Test'} · ${preguntas.length} preguntas`;
+  document.getElementById('formsQuestions').innerHTML = preguntas.map((p, idx) => `
+    <div class="bg-gray-800 rounded-2xl p-6 fade-in">
+      <div class="flex items-start gap-3 mb-4">
+        <span class="bg-gray-700 text-green-400 font-bold text-sm w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0">${idx+1}</span>
+        <div class="flex-1">
+          ${p.imagen_url ? `<img src="${p.imagen_url}" class="max-h-40 rounded-xl mb-3" onerror="this.style.display='none'">` : ''}
+          <h3 class="font-semibold">${p.enunciado}</h3>
+          ${p.tema ? `<span class="text-xs text-gray-500">${p.tema}</span>` : ''}
+        </div>
+      </div>
+      <div id="form-opts-${p.id}">${renderOptions(p)}</div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════
+// RENDER OPTIONS BY TYPE
+// ══════════════════════════════════════
+function esc(s) { return String(s).replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+function renderOptions(p) {
+  const sel = respuestas[p.id];
+  switch (p.tipo) {
+    case 'opcion_multiple': case 'imagen': return renderMultiple(p, sel);
+    case 'vof': return renderVoF(p, sel);
+    case 'pareado': return renderPareado(p);
+    case 'ordenamiento': return renderOrdenamiento(p);
+    case 'completar': return renderCompletar(p, sel);
+    case 'likert': return renderLikert(p, sel);
+    default: return '<p class="text-gray-500">Tipo no soportado</p>';
+  }
+}
+
+function renderMultiple(p, sel) {
+  const ops = Array.isArray(p.opciones) ? p.opciones : [];
+  const colors = ['border-blue-500/30','border-orange-500/30','border-purple-500/30','border-pink-500/30'];
+  return ops.map((op, i) => {
+    const s = sel === op;
+    return `<button onclick="selectOpt('${esc(p.id)}','${esc(op)}')" class="opt-btn w-full text-left bg-gray-700/50 border-2 ${s?'border-green-500 bg-green-500/10':colors[i%4]} rounded-xl px-5 py-3.5 text-sm font-medium transition">
+      <span class="inline-flex items-center gap-3"><span class="w-7 h-7 rounded-lg ${s?'bg-green-500 text-gray-900':'bg-gray-600 text-gray-300'} flex items-center justify-center text-xs font-bold">${String.fromCharCode(65+i)}</span>${op}</span></button>`;
+  }).join('');
+}
+
+function renderVoF(p, sel) {
+  return `<div class="grid grid-cols-2 gap-3">
+    <button onclick="selectOpt('${esc(p.id)}','verdadero')" class="opt-btn border-2 ${sel==='verdadero'?'border-green-500 bg-green-500/10':'border-green-500/20'} rounded-xl py-4 text-center transition font-semibold text-green-400">✓ Verdadero</button>
+    <button onclick="selectOpt('${esc(p.id)}','falso')" class="opt-btn border-2 ${sel==='falso'?'border-red-500 bg-red-500/10':'border-red-500/20'} rounded-xl py-4 text-center transition font-semibold text-red-400">✕ Falso</button>
+  </div>`;
+}
+
+function renderPareado(p) {
+  const pares = Array.isArray(p.opciones) ? p.opciones : [];
+  const derechos = [...pares.map(x=>x.der)].sort(()=>Math.random()-0.5);
+  window['par_'+p.id] = pares;
+  return `<p class="text-xs text-gray-500 mb-3">Arrastrá las definiciones hacia el término correcto</p>
+    <div class="grid grid-cols-2 gap-3 mb-3">
+      <div><div class="text-xs font-medium text-gray-400 mb-1">Términos</div>${pares.map(x=>`<div class="bg-gray-700 rounded-xl px-4 py-3 text-sm font-medium mb-2">${x.izq}</div>`).join('')}</div>
+      <div id="par-der-${p.id}"><div class="text-xs font-medium text-gray-400 mb-1">Definiciones</div>${derechos.map(d=>`<div class="drag-item bg-gray-600 rounded-xl px-4 py-3 text-sm mb-2 border-2 border-transparent hover:border-green-500/30" draggable="true" data-der="${esc(d)}" ondragstart="dStart(event)" ondragend="dEnd(event)">${d}</div>`).join('')}</div>
+    </div>
+    <div class="space-y-2" id="par-match-${p.id}">
+      <div class="text-xs font-medium text-gray-400 mb-1">Tus respuestas:</div>
+      ${pares.map((x,i)=>`<div class="grid grid-cols-2 gap-2"><div class="bg-gray-700/50 rounded-lg px-3 py-2 text-sm">${x.izq}</div>
+        <div class="drop-zone bg-gray-700/30 border-2 border-dashed border-gray-600 rounded-lg px-3 py-2 text-sm text-gray-500 flex items-center" data-midx="${i}" data-mpid="${p.id}"
+          ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="dDrop(event,'${esc(p.id)}',${i})">Arrastrá aquí</div></div>`).join('')}
+    </div>`;
+}
+
+function renderOrdenamiento(p) {
+  const items = Array.isArray(p.opciones) ? [...p.opciones].sort(()=>Math.random()-0.5) : [];
+  return `<p class="text-xs text-gray-500 mb-3">Arrastrá para ordenar correctamente</p>
+    <div id="ord-${p.id}" class="space-y-2">${items.map((it,i)=>`
+      <div class="drag-item bg-gray-700 border-2 border-transparent hover:border-green-500/30 rounded-xl px-4 py-3 text-sm flex items-center gap-3 transition" draggable="true" data-oval="${esc(it)}"
+        ondragstart="oStart(event)" ondragend="dEnd(event)" ondragover="oOver(event)" ondrop="oDrop(event,'${esc(p.id)}')">
+        <span class="w-6 h-6 bg-gray-600 rounded-md flex items-center justify-center text-xs font-bold text-gray-400 onum">${i+1}</span>${it}</div>`).join('')}
+    </div>`;
+}
+
+function renderCompletar(p, sel) {
+  return `<input type="text" placeholder="Escribí tu respuesta..." value="${sel||''}" oninput="respuestas['${esc(p.id)}']=this.value"
+    class="w-full bg-gray-700 border-2 border-gray-600 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-500 transition">`;
+}
+
+function renderLikert(p, sel) {
+  const ops = Array.isArray(p.opciones) ? p.opciones : [];
+  return `<div class="space-y-2">${ops.map((op,i)=>{
+    const s = sel===op;
+    return `<button onclick="selectOpt('${esc(p.id)}','${esc(op)}')" class="likert-opt w-full text-left border-2 ${s?'border-green-500 bg-green-500/10':'border-gray-600'} rounded-xl px-4 py-3 text-sm transition flex items-center gap-3">
+      <span class="w-8 h-8 rounded-full ${s?'bg-green-500 text-gray-900':'bg-gray-700 text-gray-400'} flex items-center justify-center text-xs font-bold">${i+1}</span>${op}</button>`;
+  }).join('')}</div>`;
+}
+
+// ── SELECT ──
+function selectOpt(pid, val) {
+  respuestas[pid] = val;
+  if (evaluacion.modo_vista === 'kahoot') renderKahootQuestion();
+  else { const p=preguntas.find(q=>String(q.id)===String(pid)); if(p){const c=document.getElementById('form-opts-'+p.id); if(c)c.innerHTML=renderOptions(p);} }
+}
+
+// ── DRAG & DROP: PAREADO ──
+let dragEl = null;
+function dStart(e) { dragEl=e.target; e.target.classList.add('dragging'); e.dataTransfer.setData('text/plain',e.target.dataset.der); }
+function dEnd(e) { e.target.classList.remove('dragging'); }
+function dDrop(e, pid, idx) {
+  e.preventDefault(); const z=e.currentTarget; z.classList.remove('drag-over');
+  const val = e.dataTransfer.getData('text/plain');
+  z.textContent=val; z.classList.remove('text-gray-500','border-dashed'); z.classList.add('text-green-400','font-medium','border-green-500/30');
+  if(dragEl) dragEl.style.display='none';
+  // update
+  const pares=window['par_'+pid]||[]; const zones=document.querySelectorAll(`[data-mpid="${pid}"]`);
+  const res=[]; zones.forEach((zo,i)=>{ const t=zo.textContent.trim(); if(t&&t!=='Arrastrá aquí') res.push({izq:pares[i].izq,der:t}); });
+  respuestas[pid]=res;
+}
+
+// ── DRAG & DROP: ORDENAMIENTO ──
+let ordEl = null;
+function oStart(e) { ordEl=e.target.closest('.drag-item'); ordEl.classList.add('dragging'); e.dataTransfer.setData('text/plain',''); }
+function oOver(e) {
+  e.preventDefault(); const t=e.target.closest('.drag-item'); if(!t||t===ordEl) return;
+  const list=t.parentElement, items=[...list.children], di=items.indexOf(ordEl), ti=items.indexOf(t);
+  if(di<ti) list.insertBefore(ordEl,t.nextSibling); else list.insertBefore(ordEl,t);
+}
+function oDrop(e, pid) {
+  e.preventDefault(); if(ordEl) ordEl.classList.remove('dragging');
+  const list=document.getElementById('ord-'+pid); if(!list) return;
+  const items=[...list.querySelectorAll('.drag-item')];
+  items.forEach((it,i)=>{ const n=it.querySelector('.onum'); if(n) n.textContent=i+1; });
+  respuestas[pid]=items.map(it=>it.dataset.oval);
+}
+
+// ── TIMER ──
+function startTimer(secs) {
+  clearInterval(timerInterval);
+  const td=document.getElementById('kahootTimer');
+  if(!secs||secs<=0){td.classList.add('hidden');return;}
+  td.classList.remove('hidden');
+  let rem=secs; const circ=document.getElementById('timerCircle'), txt=document.getElementById('timerText'), C=100.5;
+  txt.textContent=secs; circ.style.strokeDashoffset='0'; circ.style.stroke='#00E676'; txt.className='text-sm font-bold text-green-400';
+  timerInterval=setInterval(()=>{
+    rem--; txt.textContent=rem; circ.style.strokeDashoffset=C*(1-rem/secs);
+    if(rem<=5){txt.className='text-sm font-bold text-red-400';circ.style.stroke='#EF4444';}
+    if(rem<=0){clearInterval(timerInterval); if(currentIdx<preguntas.length-1){currentIdx++;renderKahootQuestion();}}
+  },1000);
+}
+
+// ══════════════════════════════════════
+// ENVIAR
+// ══════════════════════════════════════
+async function enviarRespuestas() {
+  clearInterval(timerInterval);
+  const arr = preguntas.map(p => {
+    let r = respuestas[p.id];
+    if (p.tipo==='ordenamiento' && !r) {
+      const list=document.getElementById('ord-'+p.id);
+      if(list) r=[...list.querySelectorAll('.drag-item')].map(x=>x.dataset.oval);
+    }
+    return { pregunta_id: p.id, respuesta: r||'' };
+  }).filter(r => r.respuesta !== '' && !(Array.isArray(r.respuesta) && r.respuesta.length===0));
+
+  if (arr.length === 0 && !confirm('No respondiste ninguna pregunta. ¿Enviar de todas formas?')) return;
+
+  showLoading('Enviando respuestas...');
+  try {
+    const data = await api('enviar_respuestas', { evaluacion_id: evaluacion.id, alumno_nombre: alumnoNombre, fase, respuestas: arr });
+    hideLoading();
+    if (!data.ok) { alert('Error: '+data.error); return; }
+
+    const correctas = data.resultados ? data.resultados.filter(r=>r.es_correcta).length : 0;
+    const incorrectas = data.resultados ? data.resultados.filter(r=>!r.es_correcta).length : 0;
+    document.getElementById('resFase').textContent = fase==='pre'?'Pre-Test Diagnóstico':'Post-Test Final';
+    document.getElementById('resPorcentaje').textContent = data.porcentaje+'%';
+    document.getElementById('resPuntos').textContent = data.puntos_obtenidos+' / '+data.total_puntos+' puntos';
+    document.getElementById('resCorrectas').textContent = correctas;
+    document.getElementById('resIncorrectas').textContent = incorrectas;
+
+    const icon = data.porcentaje>=80?'🎉':data.porcentaje>=50?'👍':'💪';
+    document.getElementById('resIcon').innerHTML=`<span class="text-5xl">${icon}</span>`;
+
+    let msg='Gracias por completar la evaluación.';
+    if(fase==='pre') msg='Tu clase comenzará ahora. Al final repetiremos esta evaluación para medir lo que aprendiste.';
+    if(fase==='post'&&data.porcentaje>=80) msg='¡Excelente resultado! Se nota lo que aprendiste.';
+    document.getElementById('resMensaje').textContent=msg;
+
+    const pe=document.getElementById('resPorcentaje');
+    pe.className='text-5xl font-extrabold mb-1 '+(data.porcentaje>=80?'text-green-400':data.porcentaje>=50?'text-yellow-400':'text-red-400');
+    showScreen('screenResultados');
+  } catch(e) { hideLoading(); alert('Error: '+e.message); }
+}
+</script>
+</body>
+</html>
